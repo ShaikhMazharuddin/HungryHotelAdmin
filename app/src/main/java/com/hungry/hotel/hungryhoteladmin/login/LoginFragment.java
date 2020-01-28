@@ -253,6 +253,7 @@ public class LoginFragment extends Fragment {
         if (isValidUser) {
             UserViewModel userViewModel = ViewModelProviders.of(getActivity()).get(UserViewModel.class);
             userViewModel.getUser(loggedInUser, new HungryAdminApiListener<User>() {
+
                 @Override
                 public void onSuccess(User user) {
                     Log.d("user", user.toString());
