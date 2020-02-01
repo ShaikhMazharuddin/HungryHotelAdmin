@@ -3,13 +3,14 @@ package com.hungry.hotel.hungryhoteladmin.orders.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
 import com.hungry.hotel.hungryhoteladmin.deliveryboy.model.DeliveryBoy;
 import com.hungry.hotel.hungryhoteladmin.restaurentmenu.model.Dish;
 
 import java.util.List;
 
 public class Order implements Parcelable {
-    private int orderId;
+    /*private int orderId;
     private boolean isNewOrder;
     private String orderImage;
     private String orderDate;
@@ -25,51 +26,139 @@ public class Order implements Parcelable {
     private float orderRating;
     private String deliveryAddress;
     private String orderFeedback;
-    private Hotel hotel;
+    private Hotel hotel;*/
+
+    @SerializedName("OR_ID")
+    String orderId;
+    @SerializedName("OR_NO")
+    String ordernumber;
+    @SerializedName("CM_MS_ID")
+    String clientmasterId;
+    @SerializedName("HOT_MS_ID")
+    String hotelMasterId;
+    @SerializedName("OR_STATUS")
+    String orderStaus;
+    @SerializedName("EX_DILIVERY_TIME")
+    String expectedDeliveryTime;
+    @SerializedName("DL_BOY_STATUS")
+    String deliveryBoyStatus;
+    @SerializedName("DL_BO_MA_ID")
+    String deliveryBoyMasterId;
+    @SerializedName("DL_DATE_TIME")
+    String deliveryDateTime;
+    @SerializedName("RATING")
+    String orderRating;
+    @SerializedName("FEEDBACK")
+    String orderFeedback;
+    @SerializedName("DL_AD_MA_ID")
+    String delieryAddressMasterId;
+    @SerializedName("PAY_METHOD")
+    String paymentmethod;
+    @SerializedName("PAYMENT_STATUS")
+    String paymentStatus;
+    @SerializedName("NET_TOTAL")
+    String orderNetTotal;
+    @SerializedName("TAX")
+    String orderTax;
+    @SerializedName("TOTAL")
+    String orderTotal;
+    @SerializedName("DISCOUNT")
+    String orderDiscount;
+    @SerializedName("COMM_PERCENT")
+    String commissionPercent;
+    @SerializedName("COMM_AMMOUNT")
+    String commissionAmount;
+    @SerializedName("CREATED_AT")
+    String orderCreatedAt;
+    @SerializedName("UPDATED_AT")
+    String orderUpdatedAt;
+    @SerializedName("DB_RATING")
+    String deliveryBoyRating;
+    @SerializedName("DISPATCH_CODE")
+    String dispatchCode;
+    @SerializedName("DB_FEEDBACK")
+    String deliveryBoyFeedback;
+    @SerializedName("FNAME")
+    String firstName;
+    @SerializedName("LNAME")
+    String lastName;
+    @SerializedName("NAME")
+    String hotelName;
+    @SerializedName("IMG_URL")
+    String orderImageUrl;
+    @SerializedName("items")
+    List<OrderItem> orderItemList;
 
 
     public Order() {
     }
 
+
     protected Order(Parcel in) {
-        orderId = in.readInt();
-        isNewOrder = in.readByte() != 0;
-        orderImage = in.readString();
-        orderDate = in.readString();
-        customer = in.readParcelable(Customer.class.getClassLoader());
-        dishList = in.createTypedArrayList(Dish.CREATOR);
-        deliveryBoy = in.readParcelable(DeliveryBoy.class.getClassLoader());
-        dishCount = in.readInt();
-        orderStatus = in.readString();
-        totalPrice = in.readDouble();
-        commissionPercent = in.readDouble();
-        commission = in.readDouble();
-        receivableAmount = in.readDouble();
-        orderRating = in.readFloat();
-        deliveryAddress = in.readString();
+        orderId = in.readString();
+        ordernumber = in.readString();
+        clientmasterId = in.readString();
+        hotelMasterId = in.readString();
+        orderStaus = in.readString();
+        expectedDeliveryTime = in.readString();
+        deliveryBoyStatus = in.readString();
+        deliveryBoyMasterId = in.readString();
+        deliveryDateTime = in.readString();
+        orderRating = in.readString();
         orderFeedback = in.readString();
-        hotel = in.readParcelable(Hotel.class.getClassLoader());
+        delieryAddressMasterId = in.readString();
+        paymentmethod = in.readString();
+        paymentStatus = in.readString();
+        orderNetTotal = in.readString();
+        orderTax = in.readString();
+        orderTotal = in.readString();
+        orderDiscount = in.readString();
+        commissionPercent = in.readString();
+        commissionAmount = in.readString();
+        orderCreatedAt = in.readString();
+        orderUpdatedAt = in.readString();
+        deliveryBoyRating = in.readString();
+        dispatchCode = in.readString();
+        deliveryBoyFeedback = in.readString();
+        firstName = in.readString();
+        lastName = in.readString();
+        hotelName = in.readString();
+        orderImageUrl = in.readString();
+        orderItemList = in.createTypedArrayList(OrderItem.CREATOR);
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(orderId);
-        dest.writeByte((byte) (isNewOrder ? 1 : 0));
-        dest.writeString(orderImage);
-        dest.writeString(orderDate);
-        dest.writeParcelable(customer, flags);
-        dest.writeTypedList(dishList);
-        dest.writeParcelable(deliveryBoy, flags);
-        dest.writeInt(dishCount);
-        dest.writeString(orderStatus);
-        dest.writeDouble(totalPrice);
-        dest.writeDouble(commissionPercent);
-        dest.writeDouble(commission);
-        dest.writeDouble(receivableAmount);
-        dest.writeFloat(orderRating);
-        dest.writeString(deliveryAddress);
+        dest.writeString(orderId);
+        dest.writeString(ordernumber);
+        dest.writeString(clientmasterId);
+        dest.writeString(hotelMasterId);
+        dest.writeString(orderStaus);
+        dest.writeString(expectedDeliveryTime);
+        dest.writeString(deliveryBoyStatus);
+        dest.writeString(deliveryBoyMasterId);
+        dest.writeString(deliveryDateTime);
+        dest.writeString(orderRating);
         dest.writeString(orderFeedback);
-        dest.writeParcelable(hotel, flags);
+        dest.writeString(delieryAddressMasterId);
+        dest.writeString(paymentmethod);
+        dest.writeString(paymentStatus);
+        dest.writeString(orderNetTotal);
+        dest.writeString(orderTax);
+        dest.writeString(orderTotal);
+        dest.writeString(orderDiscount);
+        dest.writeString(commissionPercent);
+        dest.writeString(commissionAmount);
+        dest.writeString(orderCreatedAt);
+        dest.writeString(orderUpdatedAt);
+        dest.writeString(deliveryBoyRating);
+        dest.writeString(dispatchCode);
+        dest.writeString(deliveryBoyFeedback);
+        dest.writeString(firstName);
+        dest.writeString(lastName);
+        dest.writeString(hotelName);
+        dest.writeString(orderImageUrl);
+        dest.writeTypedList(orderItemList);
     }
 
     @Override
@@ -89,132 +178,84 @@ public class Order implements Parcelable {
         }
     };
 
-    public int getOrderId() {
+    public String getOrderId() {
         return orderId;
     }
 
-    public Hotel getHotel() {
-        return hotel;
-    }
-
-    public void setHotel(Hotel hotel) {
-        this.hotel = hotel;
-    }
-
-    public void setOrderId(int orderId) {
+    public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 
-    public boolean isNewOrder() {
-        return isNewOrder;
+    public String getOrdernumber() {
+        return ordernumber;
     }
 
-    public void setNewOrder(boolean newOrder) {
-        isNewOrder = newOrder;
+    public void setOrdernumber(String ordernumber) {
+        this.ordernumber = ordernumber;
     }
 
-    public String getOrderImage() {
-        return orderImage;
+    public String getClientmasterId() {
+        return clientmasterId;
     }
 
-    public void setOrderImage(String orderImage) {
-        this.orderImage = orderImage;
+    public void setClientmasterId(String clientmasterId) {
+        this.clientmasterId = clientmasterId;
     }
 
-    public String getOrderDate() {
-        return orderDate;
+    public String getHotelMasterId() {
+        return hotelMasterId;
     }
 
-    public void setOrderDate(String orderDate) {
-        this.orderDate = orderDate;
+    public void setHotelMasterId(String hotelMasterId) {
+        this.hotelMasterId = hotelMasterId;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public String getOrderStaus() {
+        return orderStaus;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setOrderStaus(String orderStaus) {
+        this.orderStaus = orderStaus;
     }
 
-    public List<Dish> getDishList() {
-        return dishList;
+    public String getExpectedDeliveryTime() {
+        return expectedDeliveryTime;
     }
 
-    public void setDishList(List<Dish> dishList) {
-        this.dishList = dishList;
+    public void setExpectedDeliveryTime(String expectedDeliveryTime) {
+        this.expectedDeliveryTime = expectedDeliveryTime;
     }
 
-    public DeliveryBoy getDeliveryBoy() {
-        return deliveryBoy;
+    public String getDeliveryBoyStatus() {
+        return deliveryBoyStatus;
     }
 
-    public void setDeliveryBoy(DeliveryBoy deliveryBoy) {
-        this.deliveryBoy = deliveryBoy;
+    public void setDeliveryBoyStatus(String deliveryBoyStatus) {
+        this.deliveryBoyStatus = deliveryBoyStatus;
     }
 
-    public int getDishCount() {
-        return dishCount;
+    public String getDeliveryBoyMasterId() {
+        return deliveryBoyMasterId;
     }
 
-    public void setDishCount(int dishCount) {
-        this.dishCount = dishCount;
+    public void setDeliveryBoyMasterId(String deliveryBoyMasterId) {
+        this.deliveryBoyMasterId = deliveryBoyMasterId;
     }
 
-    public String getOrderStatus() {
-        return orderStatus;
+    public String getDeliveryDateTime() {
+        return deliveryDateTime;
     }
 
-    public void setOrderStatus(String orderStatus) {
-        this.orderStatus = orderStatus;
+    public void setDeliveryDateTime(String deliveryDateTime) {
+        this.deliveryDateTime = deliveryDateTime;
     }
 
-    public double getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public double getCommissionPercent() {
-        return commissionPercent;
-    }
-
-    public void setCommissionPercent(double commissionPercent) {
-        this.commissionPercent = commissionPercent;
-    }
-
-    public double getCommission() {
-        return commission;
-    }
-
-    public void setCommission(double commission) {
-        this.commission = commission;
-    }
-
-    public double getReceivableAmount() {
-        return receivableAmount;
-    }
-
-    public void setReceivableAmount(double receivableAmount) {
-        this.receivableAmount = receivableAmount;
-    }
-
-    public float getOrderRating() {
+    public String getOrderRating() {
         return orderRating;
     }
 
-    public void setOrderRating(float orderRating) {
+    public void setOrderRating(String orderRating) {
         this.orderRating = orderRating;
-    }
-
-    public String getDeliveryAddress() {
-        return deliveryAddress;
-    }
-
-    public void setDeliveryAddress(String deliveryAddress) {
-        this.deliveryAddress = deliveryAddress;
     }
 
     public String getOrderFeedback() {
@@ -223,5 +264,157 @@ public class Order implements Parcelable {
 
     public void setOrderFeedback(String orderFeedback) {
         this.orderFeedback = orderFeedback;
+    }
+
+    public String getDelieryAddressMasterId() {
+        return delieryAddressMasterId;
+    }
+
+    public void setDelieryAddressMasterId(String delieryAddressMasterId) {
+        this.delieryAddressMasterId = delieryAddressMasterId;
+    }
+
+    public String getPaymentmethod() {
+        return paymentmethod;
+    }
+
+    public void setPaymentmethod(String paymentmethod) {
+        this.paymentmethod = paymentmethod;
+    }
+
+    public String getPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public void setPaymentStatus(String paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
+
+    public String getOrderNetTotal() {
+        return orderNetTotal;
+    }
+
+    public void setOrderNetTotal(String orderNetTotal) {
+        this.orderNetTotal = orderNetTotal;
+    }
+
+    public String getOrderTax() {
+        return orderTax;
+    }
+
+    public void setOrderTax(String orderTax) {
+        this.orderTax = orderTax;
+    }
+
+    public String getOrderTotal() {
+        return orderTotal;
+    }
+
+    public void setOrderTotal(String orderTotal) {
+        this.orderTotal = orderTotal;
+    }
+
+    public String getOrderDiscount() {
+        return orderDiscount;
+    }
+
+    public void setOrderDiscount(String orderDiscount) {
+        this.orderDiscount = orderDiscount;
+    }
+
+    public String getCommissionPercent() {
+        return commissionPercent;
+    }
+
+    public void setCommissionPercent(String commissionPercent) {
+        this.commissionPercent = commissionPercent;
+    }
+
+    public String getCommissionAmount() {
+        return commissionAmount;
+    }
+
+    public void setCommissionAmount(String commissionAmount) {
+        this.commissionAmount = commissionAmount;
+    }
+
+    public String getOrderCreatedAt() {
+        return orderCreatedAt;
+    }
+
+    public void setOrderCreatedAt(String orderCreatedAt) {
+        this.orderCreatedAt = orderCreatedAt;
+    }
+
+    public String getOrderUpdatedAt() {
+        return orderUpdatedAt;
+    }
+
+    public void setOrderUpdatedAt(String orderUpdatedAt) {
+        this.orderUpdatedAt = orderUpdatedAt;
+    }
+
+    public String getDeliveryBoyRating() {
+        return deliveryBoyRating;
+    }
+
+    public void setDeliveryBoyRating(String deliveryBoyRating) {
+        this.deliveryBoyRating = deliveryBoyRating;
+    }
+
+    public String getDispatchCode() {
+        return dispatchCode;
+    }
+
+    public void setDispatchCode(String dispatchCode) {
+        this.dispatchCode = dispatchCode;
+    }
+
+    public String getDeliveryBoyFeedback() {
+        return deliveryBoyFeedback;
+    }
+
+    public void setDeliveryBoyFeedback(String deliveryBoyFeedback) {
+        this.deliveryBoyFeedback = deliveryBoyFeedback;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getHotelName() {
+        return hotelName;
+    }
+
+    public void setHotelName(String hotelName) {
+        this.hotelName = hotelName;
+    }
+
+    public String getOrderImageUrl() {
+        return orderImageUrl;
+    }
+
+    public void setOrderImageUrl(String orderImageUrl) {
+        this.orderImageUrl = orderImageUrl;
+    }
+
+    public List<OrderItem> getOrderItemList() {
+        return orderItemList;
+    }
+
+    public void setOrderItemList(List<OrderItem> orderItemList) {
+        this.orderItemList = orderItemList;
     }
 }

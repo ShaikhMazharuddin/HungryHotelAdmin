@@ -198,7 +198,7 @@ public class OrderDetailsFragment extends Fragment {
     }
 
     private void setValues() {
-        if (order != null) {
+        /*if (order != null) {
 
             Glide.with(getActivity())
                     .load(R.drawable.food)
@@ -224,7 +224,7 @@ public class OrderDetailsFragment extends Fragment {
             setDishListProperty(rvDishes);
             rvDishes.setAdapter(dishesAdapter);
 
-        }
+        }*/
     }
 
     private void instantiateView(View orderDetailsView) {

@@ -23,6 +23,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.google.gson.Gson;
 import com.hungry.hotel.hungryhoteladmin.R;
 import com.hungry.hotel.hungryhoteladmin.dashboard.OrderDashboardFragment;
 import com.hungry.hotel.hungryhoteladmin.home.MainActivity2;
@@ -295,6 +296,10 @@ public class LoginFragment extends Fragment {
     private boolean saveDetailsToPreferences(User user) {
         SharedPreferences.Editor spEditor = SharedPreferenceHelper.getEditorInstance(getActivity(), "USER");
         spEditor.clear();
+        String userData = "";
+        Gson gson= new Gson();
+        userData = gson.toJson(user, User.class);
+        spEditor.putString("USER_DATA", userData);
         spEditor.putString(User.ACCOUNT_TYPE, user.getAccountType());
         Log.d("ACC_", user.getAccountType() + "");
         return SharedPreferenceHelper.savePreference(spEditor);

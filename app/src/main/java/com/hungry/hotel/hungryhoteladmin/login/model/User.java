@@ -13,7 +13,7 @@ public class User {
     private boolean isDeliveryBoy = true;
 
     @SerializedName("ID")
-    private String id;
+    private String hotelMasterId;
     @SerializedName("NAME")
     private String name;
     @SerializedName("GOOGLE_ID")
@@ -276,12 +276,12 @@ public class User {
         isDeliveryBoy = deliveryBoy;
     }
 
-    public String getId() {
-        return id;
+    public String getHotelMasterId() {
+        return hotelMasterId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setHotelMasterId(String hotelMasterId) {
+        this.hotelMasterId = hotelMasterId;
     }
 
     public String getName() {
@@ -404,7 +404,7 @@ public class User {
                 ", accountType='" + accountType + '\'' +
                 ", otp='" + otp + '\'' +
                 ", isDeliveryBoy=" + isDeliveryBoy +
-                ", id='" + id + '\'' +
+                ", hotelMasterId='" + hotelMasterId + '\'' +
                 ", name='" + name + '\'' +
                 ", googleId='" + googleId + '\'' +
                 ", vegOnly='" + vegOnly + '\'' +

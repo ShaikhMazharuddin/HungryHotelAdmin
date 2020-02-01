@@ -2,6 +2,7 @@ package com.hungry.hotel.hungryhoteladmin.orders;
 
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -24,20 +25,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
 import com.hungry.hotel.hungryhoteladmin.R;
 import com.hungry.hotel.hungryhoteladmin.home.MainActivity2;
+import com.hungry.hotel.hungryhoteladmin.login.model.User;
 import com.hungry.hotel.hungryhoteladmin.orderdetail.OrderDetailsFragment;
 import com.hungry.hotel.hungryhoteladmin.orders.adapter.OrdersAdapter;
 import com.hungry.hotel.hungryhoteladmin.orders.viewmodel.OrdersViewModel;
 import com.hungry.hotel.hungryhoteladmin.orders.model.Order;
 import com.hungry.hotel.hungryhoteladmin.utils.OnFragmentInteractionListener;
+import com.hungry.hotel.hungryhoteladmin.utils.SharedPreferenceHelper;
 
 import java.util.List;
 
 
 public class OrderFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
-    String orderName;
+    String orderType;
     private OnFragmentInteractionListener mListener;
     FloatingActionButton fab;
     Toolbar toolbar;
@@ -62,7 +66,7 @@ public class OrderFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            this.orderName = getArguments().getString("ORDER_NAME");
+            this.orderType = getArguments().getString("ORDER_NAME");
         }
     }
 
@@ -76,16 +80,18 @@ public class OrderFragment extends Fragment {
         RecyclerView rvOrders = orderView.findViewById(R.id.rvOrders);
         OrdersViewModel ordersViewModel = ViewModelProviders.of(getActivity()).get(OrdersViewModel.class);
 
-
+        Gson gson = new Gson();
+        SharedPreferences spUser = SharedPreferenceHelper.getSharedPreferenceInstance(getActivity(), "USER");
+        User user = gson.fromJson(spUser.getString("USER_DATA", ""), User.class);
         OrdersAdapter ordersAdapter
                 = new OrdersAdapter(new OrdersAdapter.OrderOpenListener() {
             @Override
             public void openOrder(Order order) {
-
                 openOrderDetailFragment(order);
             }
         });
-        ordersViewModel.getOrderListObserver().observe(getActivity(), new Observer<List<Order>>() {
+        rvOrders.setAdapter(ordersAdapter);
+        ordersViewModel.listLiveData.observeForever(new Observer<List<Order>>() {
             @Override
             public void onChanged(List<Order> orders) {
                 if (orders != null && orders.size() > 0) {
@@ -93,8 +99,9 @@ public class OrderFragment extends Fragment {
                 }
             }
         });
+        ordersViewModel.loadOrderListObserver(null, user.getHotelMasterId(), user.getDeliveryBoyMasterId());
         setOrdersProperty(rvOrders);
-        rvOrders.setAdapter(ordersAdapter);
+
 
         return orderView;
     }

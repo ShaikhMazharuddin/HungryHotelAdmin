@@ -32,6 +32,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
 
     public void setOrderList(List<Order> orderList) {
         this.orderList = orderList;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -47,19 +48,21 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
         final Order order = orderList.get(position);
         if (order != null) {
             Glide.with(holder.civOrderImage.getContext())
-                    .load(R.drawable.food)
+                    .load(order.getOrderImageUrl())
                     .centerCrop()
                     .placeholder(R.drawable.ic_user)
                     .into(holder.civOrderImage);
-            holder.tvCustomerName.setText(order.getCustomer().getCustomerName());
-            holder.tvOrderDate.setText(order.getOrderDate());
-            holder.tvDeliveryBoy.setText(order.getDeliveryBoy().getDeliveryBoyName());
-            holder.tvDishCount.setText(order.getDishCount() + " Items");
-            if (order.isNewOrder()) {
+            holder.tvCustomerName.setText("customer-Vishal");
+//            holder.tvCustomerName.setText(order.getCustomer().getCustomerName());
+            holder.tvOrderDate.setText(order.getOrderCreatedAt());
+            holder.tvDeliveryBoy.setText("deliveryboy-Vishal");
+//            holder.tvDeliveryBoy.setText(order.getDeliveryBoy().getDeliveryBoyName());
+            holder.tvDishCount.setText(order.getOrderDiscount() + " Items");
+            if (order.getOrderStaus().equalsIgnoreCase("OPEN")) {
                 holder.tvOrderStatus.setText("New");
             }
-            holder.rbOrderRating.setRating(5);
-            holder.tvTotalPrice.setText("Rs. " + order.getTotalPrice());
+            holder.rbOrderRating.setRating(3);
+            holder.tvTotalPrice.setText("Rs. " + order.getOrderTotal());
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -73,7 +76,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
 
     @Override
     public int getItemCount() {
-        return orderList.size();
+        return orderList != null ? orderList.size() : 0;
     }
 
     public interface OrderOpenListener {

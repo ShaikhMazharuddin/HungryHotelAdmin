@@ -1,22 +1,55 @@
 package com.hungry.hotel.hungryhoteladmin.orders.repository;
 
+
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.hungry.hotel.hungryhoteladmin.deliveryboy.model.DeliveryBoy;
+import com.hungry.hotel.hungryhoteladmin.login.api.LoginApi;
+import com.hungry.hotel.hungryhoteladmin.login.model.User;
+import com.hungry.hotel.hungryhoteladmin.orders.api.OrderApi;
 import com.hungry.hotel.hungryhoteladmin.orders.model.Customer;
 import com.hungry.hotel.hungryhoteladmin.orders.model.Hotel;
 import com.hungry.hotel.hungryhoteladmin.orders.model.Order;
+import com.hungry.hotel.hungryhoteladmin.orders.model.OrderResponse;
 import com.hungry.hotel.hungryhoteladmin.restaurentmenu.model.Dish;
+import com.hungry.hotel.hungryhoteladmin.retrofit.HungryAdminApiFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class OrderRepository {
 
-    public LiveData<List<Order>> getOrders() {
-        List<Order> orderList = new ArrayList<>();
+    public LiveData<List<Order>> getOrders(String orderStatus, String hotelMasterId, String deliveryBoyMasterId) {
+//        List<Order> orderList = new ArrayList<>();
         MutableLiveData<List<Order>> liveDataOrderList = new MutableLiveData<>();
+        OrderApi orderApi = HungryAdminApiFactory.getInstance().create(OrderApi.class);
+
+        Call<OrderResponse> orderResponseCall = orderApi.getOrders(HungryAdminApiFactory.API_KEY, orderStatus,
+                hotelMasterId, deliveryBoyMasterId, null);
+        orderResponseCall.enqueue(new Callback<OrderResponse>() {
+            @Override
+            public void onResponse(Call<OrderResponse> call, Response<OrderResponse> response) {
+                Log.d("order_header", response.raw().toString());
+                Log.d("order_response", response.toString());
+                Log.d("order_result", response.body().getOrderList().toString());
+                liveDataOrderList.setValue(response.body().getOrderList());
+            }
+
+            @Override
+            public void onFailure(Call<OrderResponse> call, Throwable t) {
+                Log.d("order_response", t.getMessage());
+            }
+        });
+
+        return liveDataOrderList;
+/*
 //        Customer
         Customer customer = new Customer();
         customer.setCustomerName("Prasad Chawan");
@@ -58,6 +91,6 @@ public class OrderRepository {
         orderList.add(order);
         orderList.add(order);
         liveDataOrderList.setValue(orderList);
-        return liveDataOrderList;
+        return liveDataOrderList;*/
     }
 }
